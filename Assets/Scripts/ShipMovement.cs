@@ -2,7 +2,6 @@
 using UnityEditor;
 #endif
 
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,12 +15,12 @@ public class ShipMovement : MonoBehaviour
     private Vector3 direction = Vector3.zero;
     private Rigidbody body;
     private Transform camTransform;
-    private float thrustersPotency = 0;
+    private float thrustersPotency;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
-        camTransform = Camera.main.transform;
+        camTransform = Camera.main!.transform;
     }
 
     private void Update()
