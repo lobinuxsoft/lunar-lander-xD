@@ -2,6 +2,7 @@
 using UnityEditor;
 #endif
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,9 +35,11 @@ public class ShipControl : MonoBehaviour
             Vector3 angularVelocity = direction * (shipSettings.RotationSpeed * Time.fixedDeltaTime);
             body.angularVelocity = angularVelocity;
         }
-        
-        
-        body.velocity = Vector3.ClampMagnitude(body.velocity, shipSettings.MaxVelocity);
+
+        if (body.velocity.magnitude > 0.005f)
+        {
+            body.velocity = Vector3.ClampMagnitude(body.velocity, shipSettings.MaxVelocity);
+        }
     }
 
 #if UNITY_EDITOR
