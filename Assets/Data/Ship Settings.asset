@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de18c73928e9d34b86e1c68c9b19cb5, type: 3}
+  m_Name: Ship Settings
+  m_EditorClassIdentifier: 
+  redeableFile: 0
+  fileExtention: .save
+  shipSettings:
+    maxFuel: 1000
+    ratioFuelConsumition: 1
+    thrustersPower: 30
+    rotationSpeed: 180
+    maxVelocity: 50
+    shipFuel: 0
+    thrustersPotency: 0

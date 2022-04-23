@@ -9,32 +9,21 @@ namespace CryingOnionTools.ScriptableVariables
         
         [SerializeField] private uint value = 0;
 
-        public Action<uint> onValueChange;
+        public event Action<uint> onValueChange;
 
-        public uint Value => value;
-            
-        public void AddValue(uint newValue)
+        public uint Value
         {
-            value = Math.Clamp(value + newValue, uint.MinValue, uint.MaxValue);
-            onValueChange?.Invoke(value);
+            get => value;
+            set
+            {
+                this.value = value;
+                onValueChange?.Invoke(this.value);
+            }
         }
 
-        public void SetValue(uint newValue)
-        {
-            value = Math.Clamp(newValue, uint.MinValue, uint.MaxValue);
-            onValueChange?.Invoke(value);
-        }
+        public override void SaveData() => SaveData(new UIntStruct { value = value });
 
-        public override void SaveData()
-        {
-            UIntVariableStruct temp = new UIntVariableStruct { value = value };
-            SaveData(temp);
-        }
-
-        public override void LoadData()
-        {
-            value = Math.Clamp(LoadData<UIntVariableStruct>().value, uint.MinValue, uint.MaxValue);
-        }
+        public override void LoadData() => value = LoadData<UIntStruct>().value;
 
         public override void EraseSaveFile()
         {
@@ -44,7 +33,7 @@ namespace CryingOnionTools.ScriptableVariables
         }
     }
 
-    struct UIntVariableStruct
+    struct UIntStruct
     {
         public uint value;
     }

@@ -8,38 +8,31 @@ namespace CryingOnionTools.ScriptableVariables
     {
         [SerializeField] private float value;
 
-        public Action<float> onValueChange;
+        public event Action<float> onValueChange;
 
-        public float Value => value;
-        
-        public void AddValue(float newValue)
+        public float Value
         {
-            value = Math.Clamp(value + newValue, float.MinValue, float.MaxValue);
-            
-            onValueChange?.Invoke(value);
+            get => value;
+            set
+            {
+                this.value = value;
+                onValueChange?.Invoke(this.value);
+            }
         }
 
-        public void SetValue(float newValue)
-        {
-            value = Math.Clamp(newValue, float.MinValue, float.MaxValue);
-            onValueChange?.Invoke(value);
-        }
+        public override void SaveData() => SaveData(new FloatStruct{ value = value});
 
-        public override void SaveData()
-        {
-            FloatVariableStruct temp = new FloatVariableStruct { value = value };
-            SaveData(temp);
-        }
+        public override void LoadData() => value = LoadData<FloatStruct>().value;
 
-        public override void LoadData()
+        public override void EraseSaveFile()
         {
-            value = Math.Clamp(LoadData<FloatVariableStruct>().value, float.MinValue, float.MaxValue);
-            value = LoadData<FloatVariableStruct>().value;
+            base.EraseSaveFile();
+            value = 0;
         }
+    }
 
-        struct FloatVariableStruct
-        {
-            public float value;
-        }
+    struct FloatStruct
+    {
+        public float value;
     }
 }

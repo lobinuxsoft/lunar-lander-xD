@@ -6,34 +6,23 @@ namespace CryingOnionTools.ScriptableVariables
     [CreateAssetMenu(fileName = "New Int Variable", menuName = "Crying Onion Tools/ Scriptable Variables/ Int Variable")]
     public class IntVariable : BaseScriptableVariable
     {
-        [SerializeField] private int value = 0;
+        [SerializeField] private int value;
 
-        public Action<int> onValueChange;
+        public event Action<int> onValueChange;
 
-        public int Value => value;
-        
-        public void AddValue(int newValue)
+        public int Value
         {
-            value = Math.Clamp(value + newValue, int.MinValue, int.MaxValue);
-            onValueChange?.Invoke(value);
+            get => value;
+            set
+            {
+                this.value = value;
+                onValueChange?.Invoke(this.value);
+            }
         }
 
-        public void SetValue(int newValue)
-        {
-            value = Math.Clamp(newValue, int.MinValue, int.MaxValue);
-            onValueChange?.Invoke(value);
-        }
+        public override void SaveData() => SaveData(new IntStruct{value = value});
 
-        public override void SaveData()
-        {
-            IntVariableStruct temp = new IntVariableStruct { value = value };
-            SaveData(temp);
-        }
-
-        public override void LoadData()
-        {
-            value = Math.Clamp(LoadData<IntVariableStruct>().value, int.MinValue, int.MaxValue);
-        }
+        public override void LoadData() => value = LoadData<IntStruct>().value;
 
         public override void EraseSaveFile()
         {
@@ -43,7 +32,7 @@ namespace CryingOnionTools.ScriptableVariables
         }
     }
 
-    struct IntVariableStruct
+    struct IntStruct
     {
         public int value;
     }

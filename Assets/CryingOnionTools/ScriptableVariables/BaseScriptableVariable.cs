@@ -10,8 +10,8 @@ namespace CryingOnionTools.ScriptableVariables
         [SerializeField] private bool redeableFile;
         [SerializeField] protected string fileExtention = ".save";
 
-        public string folderPath => $"{Application.persistentDataPath}/";
-        public string completePath => $"{folderPath}{name.GetHashCode()}{fileExtention}";
+        private string folderPath => $"{Application.persistentDataPath}/";
+        private string completePath => $"{folderPath}{name.GetHashCode(StringComparison.CurrentCulture)}{fileExtention}";
         public string finderPath => File.Exists(completePath) ? completePath : folderPath;
 
         /// <summary>
