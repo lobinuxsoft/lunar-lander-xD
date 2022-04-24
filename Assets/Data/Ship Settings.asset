@@ -16,9 +16,10 @@ MonoBehaviour:
   fileExtention: .save
   shipSettings:
     maxFuel: 1000
-    ratioFuelConsumition: 1
+    ratioFuelConsumition: 50
     thrustersPower: 30
     rotationSpeed: 180
     maxVelocity: 50
-    shipFuel: 0
+    curVelocity: 0
+    shipFuel: 1000
     thrustersPotency: 0

@@ -2,7 +2,6 @@
 using UnityEditor;
 #endif
 
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,38 +9,95 @@ using UnityEngine.InputSystem;
 public class ShipControl : MonoBehaviour
 {
     [SerializeField] private ShipControlSettings shipSettings;
+    [SerializeField] private float smoothInputSpeed = .2f;
 
-    private Vector3 direction = Vector3.zero;
+    private Vector3 targetDir;
+    private Vector3 direction;
+    private Vector3 smoothDirVelocity;
+
+    private float targetThruster;
+    private float thruster;
+    private float smoothTargetThruster;
+    
     private Rigidbody body;
     private Transform camTransform;
+    private float baseAngularDrag;
 
+    private Vector2 dirInput;
+
+    public Rigidbody Body => body;
+    
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
+        body.interpolation = RigidbodyInterpolation.Interpolate;
+        body.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        baseAngularDrag = body.angularDrag;
         camTransform = Camera.main!.transform;
         shipSettings.Refuel();
     }
 
+    private void Update()
+    {
+        CalculateMovement();
+        CalculateThruster();
+    }
+
     private void FixedUpdate()
     {
-        if (shipSettings.ThrustersPotency > 0 && shipSettings.ShipFuel > 0)
+        if (shipSettings.ThrustersPotency > 0.001f && shipSettings.ShipFuel > 0)
         {
             body.AddForce(body.transform.up * (shipSettings.ThrustersPower * shipSettings.ThrustersPotency), ForceMode.Force);
-            shipSettings.ShipFuel -= shipSettings.RatioFuelConsumition * Time.fixedDeltaTime;
+            shipSettings.ShipFuel -= shipSettings.RatioFuelConsumition * shipSettings.ThrustersPotency * Time.fixedDeltaTime;
         }
 
-        if (direction.magnitude > 0)
+        if (direction.magnitude > 0.01f)
         {
+            body.angularDrag = baseAngularDrag;
             Vector3 angularVelocity = direction * (shipSettings.RotationSpeed * Time.fixedDeltaTime);
             body.angularVelocity = angularVelocity;
         }
+        else
+        {
+            body.angularDrag = 5;
+        }
 
-        if (body.velocity.magnitude > 0.005f)
+        if (body.velocity.magnitude > 0.01f)
         {
             body.velocity = Vector3.ClampMagnitude(body.velocity, shipSettings.MaxVelocity);
+            shipSettings.CurVelocity = body.velocity.magnitude;
+        }
+        else
+        {
+            shipSettings.CurVelocity = 0;
         }
     }
 
+    public void OnMove(InputAction.CallbackContext context) => dirInput = context.ReadValue<Vector2>();
+    public void OnThrusters(InputAction.CallbackContext context) => targetThruster = context.ReadValue<float>();
+    
+    
+    private void CalculateMovement()
+    {
+        Vector3 forward = camTransform.forward;
+        forward.y = 0;
+        forward.Normalize();
+
+        Vector3 right = camTransform.right;
+        right.y = 0;
+        right.Normalize();
+        
+        targetDir = -dirInput.x * forward + dirInput.y * right;
+        
+        direction = Vector3.SmoothDamp(direction, targetDir, ref smoothDirVelocity, smoothInputSpeed);
+    }
+    
+    private void CalculateThruster()
+    {
+        thruster = Mathf.SmoothDamp(thruster, targetThruster, ref smoothTargetThruster, smoothInputSpeed);
+        shipSettings.ThrustersPotency = thruster > 0.001f ? thruster : 0;
+    }
+    
 #if UNITY_EDITOR
 
     [SerializeField] private Color gizmoColor;
@@ -58,24 +114,4 @@ public class ShipControl : MonoBehaviour
             shipSettings.ThrustersPotency, EventType.Repaint);
     }
 #endif
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Vector2 input = context.ReadValue<Vector2>();
-        
-        Vector3 forward = camTransform.forward;
-        forward.y = 0;
-        forward.Normalize();
-
-        Vector3 right = camTransform.right;
-        right.y = 0;
-        right.Normalize();
-
-        direction = -input.x * forward + input.y * right;
-    }
-
-    public void OnThrusters(InputAction.CallbackContext context)
-    {
-        shipSettings.ThrustersPotency = context.ReadValue<float>();
-    }
 }
