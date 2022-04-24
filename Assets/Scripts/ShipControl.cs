@@ -8,8 +8,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class ShipControl : MonoBehaviour
 {
+    [Header("Ship Settings, can be saved.")]
     [SerializeField] private ShipControlSettings shipSettings;
+    
+    [Header("Internal use.")]
     [SerializeField] private float smoothInputSpeed = .2f;
+
+    [Header("Thruster vfx")]
+    [SerializeField] private ThrusterParticleControl thrusterParticleControl;
 
     private Vector3 targetDir;
     private Vector3 direction;
@@ -96,6 +102,8 @@ public class ShipControl : MonoBehaviour
     {
         thruster = Mathf.SmoothDamp(thruster, targetThruster, ref smoothTargetThruster, smoothInputSpeed);
         shipSettings.ThrustersPotency = thruster > 0.001f ? thruster : 0;
+        
+        thrusterParticleControl.ThrusterPower(shipSettings.ShipFuel > 0 ? shipSettings.ThrustersPotency : 0);
     }
     
 #if UNITY_EDITOR
