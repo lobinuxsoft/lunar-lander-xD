@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/GameplayUI.uss?fileID=7433441132597879392&amp;guid=7c94193d23dde604fbf18787f54801db&amp;type=3#GameplayUI" />
+    <ui:VisualElement style="width: 100%; height: 100%; flex-direction: column;">
+        <ui:VisualElement name="FuelBar">
+            <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.7); width: auto; height: 20px; margin-left: 25%; margin-right: 25%; border-top-left-radius: 0; border-bottom-left-radius: 12px; border-top-right-radius: 0; border-bottom-right-radius: 0; justify-content: center; overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; flex-direction: column; align-items: stretch;">
+                <ui:VisualElement style="height: 100%; position: absolute; border-top-left-radius: 8px; border-bottom-right-radius: 8px; background-color: rgb(0, 0, 0); overflow: hidden; border-bottom-left-radius: 8px; border-top-right-radius: 8px; left: 10%; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; right: 0; width: 88%;">
+                    <ui:VisualElement name="fuel-bar" style="background-color: rgb(0, 111, 255); width: 100%; height: 100%; position: relative;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="height: 100%; width: 10%; justify-content: space-around; align-items: stretch; flex-direction: column; flex-grow: 1; flex-shrink: 1; flex-basis: auto;">
+                    <ui:Label text="FUEL" display-tooltip-when-elided="true" name="fuel-label" style="-unity-text-align: middle-center; -unity-font-style: bold; font-size: 16px; color: rgb(255, 255, 255); text-shadow: 1px 1px 1.1px rgba(0, 0, 0, 0.8);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="ThrusterBar" style="width: auto; flex-direction: row-reverse; border-right-width: 480px;">
+            <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.7); width: 20%; height: 20px; justify-content: center; overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; flex-direction: column; align-items: stretch; flex-grow: 0; flex-shrink: 1; flex-wrap: nowrap;">
+                <ui:VisualElement style="height: 100%; position: absolute; border-top-left-radius: 8px; border-bottom-right-radius: 8px; background-color: rgb(0, 0, 0); overflow: hidden; border-bottom-left-radius: 8px; border-top-right-radius: 8px; left: 40%; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; right: 0; width: 55%; flex-direction: column;">
+                    <ui:VisualElement name="thruster-bar" style="background-color: rgb(255, 132, 0); width: 100%; height: 100%; position: relative;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="height: 100%; width: 40%; justify-content: space-around; align-items: stretch; flex-direction: column; flex-grow: 1; flex-shrink: 1; flex-basis: auto;">
+                    <ui:Label text="THRUSTER" display-tooltip-when-elided="true" name="thruster-label" style="-unity-text-align: middle-center; -unity-font-style: bold; font-size: 16px; color: rgb(255, 255, 255); text-shadow: 1px 1px 1.1px rgba(0, 0, 0, 0.8); justify-content: flex-start; align-items: stretch; white-space: nowrap;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="VelocityData" style="width: auto; flex-direction: row-reverse; border-right-width: 480px;">
+            <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.7); width: 20%; height: auto; border-top-left-radius: 0; border-bottom-left-radius: 12px; border-top-right-radius: 0; border-bottom-right-radius: 12px; justify-content: center; overflow: hidden; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; flex-direction: column; align-items: stretch; flex-grow: 0; flex-shrink: 1; flex-wrap: nowrap;">
+                <ui:VisualElement style="height: auto; width: auto; justify-content: space-around; align-items: stretch; flex-direction: column; flex-grow: 1; flex-shrink: 1; flex-basis: auto;">
+                    <ui:Label text="Velocity: 100km/h" display-tooltip-when-elided="true" name="velocity-label" style="-unity-text-align: middle-center; -unity-font-style: bold; font-size: 20px; color: rgb(255, 255, 255); text-shadow: 1px 1px 1.1px rgba(0, 0, 0, 0.8); justify-content: flex-start; align-items: stretch; white-space: nowrap;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
