@@ -278,11 +278,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1732245083679312495, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
-      propertyPath: sizeMultiplier
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1732245083679312495, guid: 3744db5270c90e64fa0cb4298266525d,
-        type: 3}
       propertyPath: thrustersPower
       value: 1
       objectReference: {fileID: 0}
@@ -294,7 +289,7 @@ PrefabInstance:
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
