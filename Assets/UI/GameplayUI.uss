@@ -1,0 +1,8 @@
+.gameplay {
+    transition-duration: 2s;
+}
+
+.gameplay:disabled {
+    opacity: 0;
+    translate: -100% 0;
+}
