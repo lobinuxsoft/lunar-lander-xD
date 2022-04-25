@@ -49,7 +49,7 @@ public class ShipControlSettings : BaseScriptableVariable
     public float ShipFuel
     {
         get => shipSettings.shipFuel;
-        set => shipSettings.shipFuel = value;
+        set => shipSettings.shipFuel = Mathf.Clamp(value, 0, MaxFuel);
     }
 
     public float ThrustersPotency
