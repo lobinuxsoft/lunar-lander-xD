@@ -9,7 +9,20 @@ public class ShipControlSettings : BaseScriptableVariable
     [SerializeField] private ShipControlSettingsStruct shipSettings;
 
     public void Refuel() => shipSettings.shipFuel = shipSettings.maxFuel;
+    public void Repair() => shipSettings.curDurability = shipSettings.maxDurability;
 
+    public int MaxDurability
+    {
+        get => shipSettings.maxDurability;
+        set => shipSettings.maxDurability = value;
+    }
+
+    public int CurDurability
+    {
+        get => shipSettings.curDurability;
+        set => shipSettings.curDurability = value;
+    }
+    
     public float MaxFuel
     {
         get => shipSettings.maxFuel;
@@ -76,6 +89,8 @@ public class ShipControlSettings : BaseScriptableVariable
 [Serializable]
 public class ShipControlSettingsStruct
 {
+    public int maxDurability = 1000;
+    public int curDurability = 1000;
     [Tooltip("Maximum fuel load")]
     [Range(100, 10000)] public float maxFuel = 1000;
     [Tooltip("Fuel consumption per second")]
