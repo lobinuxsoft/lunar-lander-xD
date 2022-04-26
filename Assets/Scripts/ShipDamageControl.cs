@@ -38,6 +38,7 @@ public class ShipDamageControl : MonoBehaviour
 
     private void DestroyShip()
     {
+        shipSettings.ThrustersPotency = 0;
         body.constraints = RigidbodyConstraints.FreezeAll;
         
         for (int i = 0; i < childColliders.Length; i++)

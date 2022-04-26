@@ -2,6 +2,7 @@
 using UnityEditor;
 #endif
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -78,6 +79,8 @@ public class ShipControl : MonoBehaviour
             shipSettings.CurVelocity = 0;
         }
     }
+
+    private void OnDisable() => thrusterParticleControl.ThrusterPower(0);
 
     public void OnMove(InputAction.CallbackContext context) => dirInput = context.ReadValue<Vector2>();
     public void OnThrusters(InputAction.CallbackContext context) => targetThruster = context.ReadValue<float>();
