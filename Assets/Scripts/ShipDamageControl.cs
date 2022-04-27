@@ -8,6 +8,7 @@ public class ShipDamageControl : MonoBehaviour
     [SerializeField, Range(0, 1000)] private float explosionForce = 10;
     [SerializeField, Range(0, 1000)] private float explosionRadius = 20;
     [SerializeField] private ShipControlSettings shipSettings;
+    [SerializeField] private ParticleSystem explosionParticle;
     
     private Rigidbody body;
     private Collider[] childColliders;
@@ -40,6 +41,7 @@ public class ShipDamageControl : MonoBehaviour
     {
         shipSettings.ThrustersPotency = 0;
         body.constraints = RigidbodyConstraints.FreezeAll;
+        Instantiate(explosionParticle, transform.position, Quaternion.identity);
         
         for (int i = 0; i < childColliders.Length; i++)
         {
@@ -48,6 +50,11 @@ public class ShipDamageControl : MonoBehaviour
                 childColliders[i].enabled = true;
                 childColliders[i].gameObject.AddComponent<Rigidbody>();
                 childColliders[i].attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                
+                if (childColliders[i].TryGetComponent<ParticleSystem>(out ParticleSystem ps))
+                {
+                    ps.Play();
+                }
             }
         }
 
