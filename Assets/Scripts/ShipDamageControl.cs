@@ -70,17 +70,14 @@ public class ShipDamageControl : MonoBehaviour
     /// Delay in seconds
     /// </summary>
     /// <param name="delay"></param>
-    public async void AutoDestroy(float delay)
+    public async void AutoDestroy(float damageRatio = 100)
     {
-        var end = Time.time + delay;
-        while (Time.time < end)
+        while (shipSettings.CurDurability > 0)
         {
-            shipSettings.CurDurability = Mathf.RoundToInt(Mathf.Lerp(shipSettings.CurDurability, 0, Mathf.Clamp01(Time.time / end)));
+            shipSettings.CurDurability -= Mathf.CeilToInt(damageRatio * Time.unscaledDeltaTime);
             await Task.Yield();
         }
 
-        shipSettings.CurDurability = 0;
-        
         DestroyShip();
     }
 }
