@@ -48,6 +48,7 @@ public class LandingPad : MonoBehaviour
             {
                 isLandingCompleted = true;
                 shipSettings.Refuel();
+                shipSettings.Repair();
                 particle.Play();
             }
         }

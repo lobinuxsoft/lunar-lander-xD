@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using CryingOnionTools.ScriptableVariables;
 using UnityEngine;
 
@@ -7,9 +8,40 @@ public class ShipControlSettings : BaseScriptableVariable
 {
     [Tooltip("Ship configurations that can be saved.")]
     [SerializeField] private ShipControlSettingsStruct shipSettings;
+    
+    public async void Refuel(float chargeRatio = 1000)
+    {
+        while (shipSettings.shipFuel < shipSettings.maxFuel)
+        {
+            shipSettings.shipFuel += chargeRatio * Time.unscaledDeltaTime;
+            await Task.Yield();
+        }
+        
+        shipSettings.shipFuel = shipSettings.maxFuel;
+    }
 
-    public void Refuel() => shipSettings.shipFuel = shipSettings.maxFuel;
+    public async void Repair(float chargeRatio = 1000)
+    {
+        while (shipSettings.curDurability < shipSettings.maxDurability)
+        {
+            shipSettings.curDurability += Mathf.CeilToInt(chargeRatio * Time.unscaledDeltaTime);
+            await Task.Yield();
+        }
+        shipSettings.curDurability = shipSettings.maxDurability;
+    }
 
+    public int MaxDurability
+    {
+        get => shipSettings.maxDurability;
+        set => shipSettings.maxDurability = value;
+    }
+
+    public int CurDurability
+    {
+        get => shipSettings.curDurability;
+        set => shipSettings.curDurability = value;
+    }
+    
     public float MaxFuel
     {
         get => shipSettings.maxFuel;
@@ -76,6 +108,8 @@ public class ShipControlSettings : BaseScriptableVariable
 [Serializable]
 public class ShipControlSettingsStruct
 {
+    public int maxDurability = 1000;
+    public int curDurability = 1000;
     [Tooltip("Maximum fuel load")]
     [Range(100, 10000)] public float maxFuel = 1000;
     [Tooltip("Fuel consumption per second")]
