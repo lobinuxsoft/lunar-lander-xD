@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,7 +9,7 @@ public class ShipDamageControl : MonoBehaviour
     [SerializeField, Range(0, 1000)] private float explosionForce = 10;
     [SerializeField, Range(0, 1000)] private float explosionRadius = 20;
     [SerializeField] private ShipControlSettings shipSettings;
-    [SerializeField] private ParticleSystem explosionParticle;
+    [SerializeField] private ParticleSystem[] destroyParticles;
     
     private Rigidbody body;
     private Collider[] childColliders;
@@ -41,8 +42,12 @@ public class ShipDamageControl : MonoBehaviour
     {
         shipSettings.ThrustersPotency = 0;
         body.constraints = RigidbodyConstraints.FreezeAll;
-        Instantiate(explosionParticle, transform.position, Quaternion.identity);
-        
+
+        foreach (ParticleSystem dp in destroyParticles)
+        {
+            Instantiate(dp, transform.position, Quaternion.identity);
+        }
+
         for (int i = 0; i < childColliders.Length; i++)
         {
             if (childColliders[i].name != name)
@@ -59,5 +64,23 @@ public class ShipDamageControl : MonoBehaviour
         }
 
         onShipDestroyed?.Invoke();
+    }
+
+    /// <summary>
+    /// Delay in seconds
+    /// </summary>
+    /// <param name="delay"></param>
+    public async void AutoDestroy(float delay)
+    {
+        var end = Time.time + delay;
+        while (Time.time < end)
+        {
+            shipSettings.CurDurability = Mathf.RoundToInt(Mathf.Lerp(shipSettings.CurDurability, 0, Mathf.Clamp01(Time.time / end)));
+            await Task.Yield();
+        }
+
+        shipSettings.CurDurability = 0;
+        
+        DestroyShip();
     }
 }

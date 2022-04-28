@@ -69,6 +69,21 @@ MonoBehaviour:
   shipSettings: {fileID: 11400000, guid: 01df6fbfea2b51849a5f8ef7b3723048, type: 2}
   smoothInputSpeed: 0.2
   thrusterParticleControl: {fileID: 983215748356399170}
+  onOutOfFuel:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 213323724222990120}
+        m_TargetAssemblyTypeName: ShipDamageControl, Assembly-CSharp
+        m_MethodName: AutoDestroy
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 3.5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   gizmoColor: {r: 0, g: 0.08543205, b: 1, a: 1}
 --- !u!114 &7023654732228162933
 MonoBehaviour:
@@ -226,11 +241,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  explosionForce: 470
-  explosionRadius: 20
+  explosionForce: 500
+  explosionRadius: 50
   shipSettings: {fileID: 11400000, guid: 01df6fbfea2b51849a5f8ef7b3723048, type: 2}
-  explosionParticle: {fileID: 4901144820607230424, guid: 2c70ec02ba2ca8c46a1f2fa62888a749,
-    type: 3}
+  destroyParticles:
+  - {fileID: 4901144820607230424, guid: 2c70ec02ba2ca8c46a1f2fa62888a749, type: 3}
+  - {fileID: 4732772439981327935, guid: 9bbc873f8f4147440bf206f8327d783e, type: 3}
   onShipDestroyed:
     m_PersistentCalls:
       m_Calls:

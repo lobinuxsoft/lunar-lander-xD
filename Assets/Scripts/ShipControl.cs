@@ -4,6 +4,7 @@ using UnityEditor;
 
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -18,6 +19,8 @@ public class ShipControl : MonoBehaviour
     [Header("Thruster vfx")]
     [SerializeField] private ThrusterParticleControl thrusterParticleControl;
 
+    public UnityEvent onOutOfFuel;
+    
     private Vector3 targetDir;
     private Vector3 direction;
     private Vector3 smoothDirVelocity;
@@ -52,6 +55,12 @@ public class ShipControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (shipSettings.ShipFuel <= 0)
+        {
+            onOutOfFuel?.Invoke();
+            this.enabled = false;
+        }
+        
         if (shipSettings.ThrustersPotency > 0.001f && shipSettings.ShipFuel > 0)
         {
             body.AddForce(body.transform.up * (shipSettings.ThrustersPower * shipSettings.ThrustersPotency), ForceMode.Force);

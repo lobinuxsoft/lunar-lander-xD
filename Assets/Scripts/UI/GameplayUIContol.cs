@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class GameplayUIContol : MonoBehaviour
 {
     [SerializeField] private Gradient warningColor;
     [SerializeField] private ShipControlSettings shipSettings;
+    [SerializeField] private string sceneToLoad = "MainMenuScene";
     private VisualElement root;
     
     private Label fuelLabel;
@@ -14,6 +16,11 @@ public class GameplayUIContol : MonoBehaviour
     private VisualElement thrusterBar;
 
     private Label velocityLabel;
+
+    private VisualElement gameplayPanel;
+    private VisualElement gameoverPanel;
+
+    private Button mainmenuButton;
 
     private void Awake()
     {
@@ -28,6 +35,15 @@ public class GameplayUIContol : MonoBehaviour
         thrusterBar = root.Q<VisualElement>("thruster-bar");
         
         velocityLabel = root.Q<Label>("velocity-label");
+
+        gameplayPanel = root.Q<VisualElement>("gameplay-panel");
+        gameplayPanel.SetEnabled(true);
+        
+        gameoverPanel = root.Q<VisualElement>("gameover-panel");
+        gameoverPanel.SetEnabled(false);
+
+        mainmenuButton = root.Q<Button>("mainmenu-button");
+        mainmenuButton.clicked += ToMainMenu;
     }
 
     private void Update()
@@ -46,5 +62,16 @@ public class GameplayUIContol : MonoBehaviour
         int metersInKilometers = 1000;
         int secondsInHour = 3600;
         return value / metersInKilometers * secondsInHour;
+    }
+
+    public void ShowGameOver()
+    {
+        gameplayPanel.SetEnabled(false);
+        gameoverPanel.SetEnabled(true);
+    }
+
+    private void ToMainMenu()
+    {
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
