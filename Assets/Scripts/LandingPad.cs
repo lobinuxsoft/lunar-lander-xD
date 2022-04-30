@@ -5,27 +5,33 @@ using UnityEngine;
 public class LandingPad : MonoBehaviour
 {
     [SerializeField] private ShipControlSettings shipSettings;
-    
+
     private ShipControl shipToLand;
-    private bool isLandingCompleted = false;
+    private bool isLandingCompleted;
     private ParticleSystem particle;
+    private ParticleSystem.MainModule mainModule;
     private LineRenderer lineRenderer;
     private Transform target;
-    
+    private BoxCollider box;
+
+    public event Action onLandingCompleted; 
+
     private void Awake()
     {
-        if (TryGetComponent(out BoxCollider box))
-        {
-            box.isTrigger = true;
-        }
-
         target = Camera.main.transform;
+        
+        box = GetComponent<BoxCollider>();
+        box.isTrigger = true;
+
         particle = GetComponent<ParticleSystem>();
+        mainModule = particle.main;
+        
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.endColor = Color.clear;
-        particle.Stop();
+        
+        DisableLanding();
     }
 
     private void LateUpdate()
@@ -49,18 +55,38 @@ public class LandingPad : MonoBehaviour
                 isLandingCompleted = true;
                 shipSettings.Refuel();
                 shipSettings.Repair();
-                particle.Play();
+                
+                onLandingCompleted?.Invoke();
+                
+                DisableLanding();
             }
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.CompareTag("Player"))
+    //     {
+    //         shipToLand = null;
+    //         isLandingCompleted = false;
+    //         particle.Stop();
+    //     }
+    // }
+
+    public void EnableLanding(Color signalColor)
     {
-        if (other.CompareTag("Player"))
-        {
-            shipToLand = null;
-            isLandingCompleted = false;
-            particle.Stop();
-        }
+        lineRenderer.startColor = signalColor;
+        
+        box.enabled = true;
+        lineRenderer.enabled = true;
+        mainModule.startColor = signalColor;
+        particle.Play();
+    }
+
+    public void DisableLanding()
+    {
+        box.enabled = false;
+        lineRenderer.enabled = false;
+        particle.Stop();
     }
 }
