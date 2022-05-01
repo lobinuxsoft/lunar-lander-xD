@@ -96,7 +96,7 @@ public class GameplayUIContol : MonoBehaviour
     {
         gameplayPanel.SetEnabled(false);
 
-        gameoverLabel.text = "Mission Completed!! \nThanks for playing!!";
+        gameoverLabel.text = "Mission Completed!! \nThanks for playing";
         gameoverPanel.SetEnabled(true);
         
         mainmenuButton.Focus();
