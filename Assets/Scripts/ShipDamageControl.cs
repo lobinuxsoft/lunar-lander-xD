@@ -21,9 +21,9 @@ public class ShipDamageControl : MonoBehaviour
         body = GetComponent<Rigidbody>();
         childColliders = GetComponentsInChildren<Collider>();
 
-        for (int i = 0; i < childColliders.Length; i++)
+        foreach (Collider childCol in childColliders)
         {
-            if (childColliders[i].name != name) childColliders[i].enabled = false;
+            if (childCol.name != name) childCol.enabled = false;
         }
         
         shipSettings.Repair();
@@ -48,15 +48,15 @@ public class ShipDamageControl : MonoBehaviour
             Instantiate(dp, transform.position, Quaternion.identity);
         }
 
-        for (int i = 0; i < childColliders.Length; i++)
+        foreach (var childCol in childColliders)
         {
-            if (childColliders[i].name != name)
+            if (childCol.name != name)
             {
-                childColliders[i].enabled = true;
-                childColliders[i].gameObject.AddComponent<Rigidbody>();
-                childColliders[i].attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+                childCol.enabled = true;
+                childCol.gameObject.AddComponent<Rigidbody>();
+                childCol.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
                 
-                if (childColliders[i].TryGetComponent<ParticleSystem>(out ParticleSystem ps))
+                if (childCol.TryGetComponent<ParticleSystem>(out ParticleSystem ps))
                 {
                     ps.Play();
                 }
@@ -69,7 +69,7 @@ public class ShipDamageControl : MonoBehaviour
     /// <summary>
     /// Delay in seconds
     /// </summary>
-    /// <param name="delay"></param>
+    /// <param name="damageRatio"></param>
     public async void AutoDestroy(float damageRatio = 100)
     {
         while (shipSettings.CurDurability > 0)

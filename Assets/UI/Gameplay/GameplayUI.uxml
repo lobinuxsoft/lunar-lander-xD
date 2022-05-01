@@ -45,7 +45,7 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="gameover-panel" class="gameover-panel">
-        <ui:Label text="Game Over" display-tooltip-when-elided="true" style="flex-grow: 0; -unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 150%; -unity-font-style: bold-and-italic; text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);" />
-        <ui:Button text="To Main Menu" display-tooltip-when-elided="true" name="mainmenu-button" class="mainmenu-button" style="max-width: initial;" />
+        <ui:Label text="Game Over" display-tooltip-when-elided="true" name="gameover-label" style="flex-grow: 0; -unity-text-align: middle-center; color: rgb(255, 255, 255); font-size: 80%; -unity-font-style: bold-and-italic; text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);" />
+        <ui:Button text="To Main Menu" display-tooltip-when-elided="true" name="mainmenu-button" class="mainmenu-button" style="max-width: initial; font-size: 32px; border-top-left-radius: 30px; border-bottom-left-radius: 30px; border-top-right-radius: 30px; border-bottom-right-radius: 30px;" />
     </ui:VisualElement>
 </ui:UXML>

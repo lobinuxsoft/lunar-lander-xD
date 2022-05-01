@@ -24,6 +24,8 @@ public class GameplayUIContol : MonoBehaviour
     private VisualElement gameplayPanel;
     private VisualElement gameoverPanel;
 
+    private Label gameoverLabel;
+
     private Button mainmenuButton;
 
     private void Awake()
@@ -49,6 +51,8 @@ public class GameplayUIContol : MonoBehaviour
         
         gameoverPanel = root.Q<VisualElement>("gameover-panel");
         gameoverPanel.SetEnabled(false);
+
+        gameoverLabel = root.Q<Label>("gameover-label");
 
         mainmenuButton = root.Q<Button>("mainmenu-button");
         mainmenuButton.clicked += ToMainMenu;
@@ -81,7 +85,20 @@ public class GameplayUIContol : MonoBehaviour
     public void ShowGameOver()
     {
         gameplayPanel.SetEnabled(false);
+
+        gameoverLabel.text = "Game Over";
         gameoverPanel.SetEnabled(true);
+        
+        mainmenuButton.Focus();
+    }
+
+    public void ShowGameCompleted()
+    {
+        gameplayPanel.SetEnabled(false);
+
+        gameoverLabel.text = "Mission Completed!! \nThanks for playing!!";
+        gameoverPanel.SetEnabled(true);
+        
         mainmenuButton.Focus();
     }
 
