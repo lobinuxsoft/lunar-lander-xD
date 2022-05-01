@@ -55,7 +55,11 @@ public class LandingPad : MonoBehaviour
                 isLandingCompleted = true;
                 shipSettings.Refuel();
                 shipSettings.Repair();
+
+                shipToLand.enabled = true;
                 
+                if (shipToLand.TryGetComponent(out ShipDamageControl damageControl)) damageControl.CancelAutoDestroy();
+
                 onLandingCompleted?.Invoke();
                 
                 DisableLanding();
