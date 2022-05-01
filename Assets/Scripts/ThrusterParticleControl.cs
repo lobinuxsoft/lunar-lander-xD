@@ -26,8 +26,11 @@ public class ThrusterParticleControl : MonoBehaviour
             mainModule = particle.main;
             emissionModule = particle.emission;
         }
+        else
+        {
+            ThrusterPower(thrustersPower);
+        }
         
-        ThrusterPower(thrustersPower);
     }
 #endif
     

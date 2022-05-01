@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DeliveryManager : MonoBehaviour
 {
     [SerializeField] private int landingPadIndex = 0;
     [SerializeField, GradientUsage(true)] private Gradient landingColors;
     [SerializeField] private LandingPad[] landingPads;
+    
+    public UnityEvent onMissionCompleted;
 
     private void Start()
     {
@@ -32,7 +35,7 @@ public class DeliveryManager : MonoBehaviour
         
         if (landingPadIndex == landingPads.Length)
         {
-            Debug.Log("CONGRATS, YOU COMPLETE THE DEMO!!!");
+            onMissionCompleted?.Invoke();
         }
         else
         {

@@ -126,8 +126,12 @@ public class ShipControl : MonoBehaviour
     {
         Handles.color = gizmoColor;
         Handles.DrawWireDisc(transform.position, Vector3.up, 1);
-        Handles.ArrowHandleCap(0, transform.position, Quaternion.LookRotation(direction, Vector3.up),
-            Mathf.Clamp01(direction.magnitude), EventType.Repaint);
+        if(direction.magnitude > 0)
+        {
+            float arrowSize = Mathf.Clamp01(direction.magnitude);
+            Quaternion arrowDir = Quaternion.LookRotation(direction, Vector3.up);
+            Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
+        }
         
         Handles.color = Color.cyan;
         Handles.ArrowHandleCap(0, transform.position, Quaternion.LookRotation(transform.up, Vector3.up),
