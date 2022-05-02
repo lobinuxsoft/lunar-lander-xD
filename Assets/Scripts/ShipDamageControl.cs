@@ -1,4 +1,6 @@
+using System.Threading;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +15,8 @@ public class ShipDamageControl : MonoBehaviour
     
     private Rigidbody body;
     private Collider[] childColliders;
+
+    private CancellationTokenSource cancelToken = new CancellationTokenSource();
 
     public UnityEvent onShipDestroyed;
 
@@ -65,19 +69,41 @@ public class ShipDamageControl : MonoBehaviour
 
         onShipDestroyed?.Invoke();
     }
-
+    
     /// <summary>
-    /// Delay in seconds
+    /// Damage the ship until it is destroyed (this can be canceled with the method <see cref="CancelAutoDestroy"/>>)
     /// </summary>
     /// <param name="damageRatio"></param>
-    public async void AutoDestroy(float damageRatio = 100)
+    public void AutoDestroy(float damageRatio = 100)
     {
-        while (shipSettings.CurDurability > 0)
+        cancelToken.Dispose();
+        cancelToken = new CancellationTokenSource();
+        
+        AutoDestroyTask(damageRatio, cancelToken.Token);
+    }
+
+    private async void AutoDestroyTask(float damageRatio, CancellationToken ct)
+    {
+        while ( !ct.IsCancellationRequested)
         {
             shipSettings.CurDurability -= Mathf.CeilToInt(damageRatio * Time.unscaledDeltaTime);
+
+            if (shipSettings.CurDurability <= 0)
+            {
+                DestroyShip();
+                cancelToken.Cancel();
+            }
+                
             await Task.Yield();
         }
+    }
 
-        DestroyShip();
+    /// <summary>
+    /// Cancel the self destruct of the ship.
+    /// </summary>
+    public void CancelAutoDestroy()
+    {
+        cancelToken.Cancel();
+        
     }
 }
