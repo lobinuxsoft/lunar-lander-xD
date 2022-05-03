@@ -2,6 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
+using CryingOnionTools.GravitySystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipDamageControl : MonoBehaviour

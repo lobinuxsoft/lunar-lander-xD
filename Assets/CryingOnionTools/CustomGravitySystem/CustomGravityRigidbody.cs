@@ -1,35 +1,38 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class CustomGravityRigidbody : MonoBehaviour
+namespace CryingOnionTools.GravitySystem
 {
-   private Rigidbody body;
-   private float floatDelay;
-
-   private void Awake()
+   [RequireComponent(typeof(Rigidbody))]
+   public class CustomGravityRigidbody : MonoBehaviour
    {
-      body = GetComponent<Rigidbody>();
-      body.useGravity = false;
-   }
+      private Rigidbody body;
+      private float floatDelay;
 
-   private void FixedUpdate()
-   {
-      if (body.IsSleeping())
+      private void Awake()
       {
-         floatDelay = 0;
-         return;
+         body = GetComponent<Rigidbody>();
+         body.useGravity = false;
       }
 
-      if (body.velocity.sqrMagnitude < 0.0001f)
+      private void FixedUpdate()
       {
-         floatDelay += Time.fixedDeltaTime;
-         if(floatDelay >= 1) return;
+         if (body.IsSleeping())
+         {
+            floatDelay = 0;
+            return;
+         }
+
+         if (body.velocity.sqrMagnitude < 0.0001f)
+         {
+            floatDelay += Time.fixedDeltaTime;
+            if(floatDelay >= 1) return;
+         }
+         else
+         {
+            floatDelay = 0;
+         }
+         
+         body.AddForce(CustomGravity.GetGravity(body.position), ForceMode.Acceleration);
       }
-      else
-      {
-         floatDelay = 0;
-      }
-      
-      body.AddForce(CustomGravity.GetGravity(body.position), ForceMode.Acceleration);
    }
 }
