@@ -72,6 +72,12 @@ public class ShipControlSettings : BaseScriptableVariable
         set => shipSettings.thrustersPower = value;
     }
 
+    public float GravityBreak
+    {
+        get => shipSettings.gravityBreak;
+        set => shipSettings.gravityBreak = value;
+    }
+
     public float RotationSpeed
     {
         get => shipSettings.rotationSpeed;
@@ -93,6 +99,7 @@ public class ShipControlSettings : BaseScriptableVariable
     public override void SaveData()
     {
         shipSettings.thrustersPotency = 0;
+        shipSettings.gravityBreak = 0;
         SaveData(shipSettings);
     }
 
@@ -120,4 +127,5 @@ public class ShipControlSettingsStruct
     public float curVelocity = 0;
     public float shipFuel;
     public float thrustersPotency;
+    public float gravityBreak;
 }

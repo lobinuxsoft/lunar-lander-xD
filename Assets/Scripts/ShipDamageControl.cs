@@ -1,8 +1,8 @@
 using System.Threading;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
 using UnityEngine;
 using UnityEngine.Events;
+using CryingOnionTools.GravitySystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipDamageControl : MonoBehaviour
@@ -58,6 +58,7 @@ public class ShipDamageControl : MonoBehaviour
             {
                 childCol.enabled = true;
                 childCol.gameObject.AddComponent<Rigidbody>();
+                childCol.gameObject.AddComponent<CustomGravityRigidbody>();
                 childCol.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
                 
                 if (childCol.TryGetComponent<ParticleSystem>(out ParticleSystem ps))

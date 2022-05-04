@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7023654732228162933}
   - component: {fileID: 6466906709569677897}
   - component: {fileID: 213323724222990120}
+  - component: {fileID: 2540564498289613871}
   m_Layer: 3
   m_Name: Player Ship
   m_TagString: Player
@@ -29,11 +30,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7023654732228162936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 298.23965, y: 68.034, z: 472.0991}
+  m_LocalPosition: {x: -27.453129, y: -0.00000023841858, z: -34.694878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7462579558634415610}
+  - {fileID: 3519419485260507612}
   - {fileID: 1517700471564348529}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -68,7 +70,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSettings: {fileID: 11400000, guid: 01df6fbfea2b51849a5f8ef7b3723048, type: 2}
   smoothInputSpeed: 0.2
-  thrusterParticleControl: {fileID: 983215748356399170}
+  thrusterParticle: {fileID: 983215748356399170}
+  gravityBreakParticle: {fileID: 6548797299734015076}
   onOutOfFuel:
     m_PersistentCalls:
       m_Calls:
@@ -84,7 +87,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  gizmoColor: {r: 0, g: 0.08543205, b: 1, a: 1}
+  dirColor: {r: 1, g: 0, b: 0, a: 1}
+  thrusterColor: {r: 0, g: 1, b: 0, a: 1}
+  breakColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!114 &7023654732228162933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +119,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7023654732228162930}
-        m_TargetAssemblyTypeName: ShipMovement, Assembly-CSharp
+        m_TargetAssemblyTypeName: ShipControl, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -126,15 +131,15 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 351f2ccd-1f9f-44bf-9bec-d62ac5c5f408
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionName: Player/Move[/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 6b444451-8a00-4d00-a97e-f47457f736a8
-    m_ActionName: Player/Look[/Mouse/delta]
+    m_ActionName: Player/Look[/XInputControllerWindows/rightStick,/Mouse/delta]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7023654732228162930}
-        m_TargetAssemblyTypeName: ShipMovement, Assembly-CSharp
+        m_TargetAssemblyTypeName: ShipControl, Assembly-CSharp
         m_MethodName: OnThrusters
         m_Mode: 0
         m_Arguments:
@@ -146,19 +151,35 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
-    m_ActionName: Player/Fire[/Mouse/leftButton]
+    m_ActionName: Player/Thruster[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7023654732228162930}
+        m_TargetAssemblyTypeName: ShipControl, Assembly-CSharp
+        m_MethodName: OnGravityBreak
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5e522ae7-e620-4be6-9a6e-5102e9ef2af9
+    m_ActionName: Player/Break[/XInputControllerWindows/leftTrigger,/Mouse/rightButton]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+    m_ActionName: UI/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 7607c7b6-cd76-4816-beef-bd0341cfe950
-    m_ActionName: UI/Submit[/Keyboard/enter]
+    m_ActionName: UI/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 15cef263-9014-4fd5-94d9-4e4a6234a6ef
-    m_ActionName: UI/Cancel[/Keyboard/escape]
+    m_ActionName: UI/Cancel[/Keyboard/escape,/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 32b35790-4ed0-4e9a-aa41-69ac6d629449
@@ -262,6 +283,30 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameplayUIContol, Assembly-CSharp
+        m_MethodName: ShowGameOver
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2540564498289613871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7023654732228162936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d812bf96b8cc39f48ac77b9582945932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1334558578537941914
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -272,7 +317,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 51e3690cd1307494d91a34d24237185f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51e3690cd1307494d91a34d24237185f,
         type: 3}
@@ -24417,17 +24462,17 @@ PrefabInstance:
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: EmissionModule.enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7959220448236310335, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
@@ -24509,3 +24554,105 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1562536015737203245}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4291524742674636727
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7023654732228162932}
+    m_Modifications:
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1662514479591388803, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: m_Name
+      value: Main Break
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332269102277812882, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: ShapeModule.m_MeshRenderer
+      value: 
+      objectReference: {fileID: 1843532592273591722}
+    - target: {fileID: 4332269102277812882, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4332269102277812882, guid: df0286861f6ffe54fad45a142e0e66f5,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: df0286861f6ffe54fad45a142e0e66f5, type: 3}
+--- !u!4 &3519419485260507612 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 817951319148050027, guid: df0286861f6ffe54fad45a142e0e66f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4291524742674636727}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6548797299734015076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7020143657798153171, guid: df0286861f6ffe54fad45a142e0e66f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 4291524742674636727}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de69c7f0bf061cf448c7ee50ee570479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

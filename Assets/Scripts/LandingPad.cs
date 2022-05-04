@@ -37,7 +37,7 @@ public class LandingPad : MonoBehaviour
     private void LateUpdate()
     {
         float distance = Vector3.Distance(target.position, transform.position);
-        lineRenderer.SetPosition(1, distance * .25f * Vector3.up + transform.position);
+        lineRenderer.SetPosition(1, distance * .25f * transform.up + transform.position);
         lineRenderer.startWidth = distance * .01f;
         lineRenderer.endWidth = distance * .01f;
     }

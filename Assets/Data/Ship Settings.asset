@@ -15,11 +15,13 @@ MonoBehaviour:
   redeableFile: 0
   fileExtention: .save
   shipSettings:
+    maxDurability: 1000
+    curDurability: 1000
     maxFuel: 1000
     ratioFuelConsumition: 50
     thrustersPower: 30
     rotationSpeed: 180
     maxVelocity: 50
     curVelocity: 0
-    shipFuel: 1000
+    shipFuel: 0
     thrustersPotency: 0
