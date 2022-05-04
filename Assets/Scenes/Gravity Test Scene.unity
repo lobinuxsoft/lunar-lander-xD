@@ -674,7 +674,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0.046269175, y: 0.000000017323304, z: 8.0235485e-10, w: 0.998929}
+  m_LocalRotation: {x: -0.046269175, y: 0.00000001732212, z: 8.022644e-10, w: 0.998929}
   m_LocalPosition: {x: -27.453129, y: 0.10006238, z: -50.69388}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1181,7 +1181,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647549732}
-  m_LocalRotation: {x: -0.06438358, y: 0.000000017710308, z: 0.0000000011426239, w: 0.9979252}
+  m_LocalRotation: {x: -0.06438358, y: -0.000000017699298, z: -0.0000000011419135,
+    w: 0.9979252}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1259,7 +1260,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760730985}
-  m_LocalRotation: {x: -0.04626917, y: 0.000000017322874, z: 8.0237433e-10, w: 0.998929}
+  m_LocalRotation: {x: -0.04626917, y: 0.000000017321693, z: 8.023197e-10, w: 0.998929}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2043,7 +2044,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685938907}
-  m_LocalRotation: {x: -0.028091505, y: -0.0000000012440886, z: -3.4962117e-11, w: 0.99960536}
+  m_LocalRotation: {x: -0.028091507, y: -0.0000000011155532, z: -3.134994e-11, w: 0.99960536}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2700,6 +2701,16 @@ PrefabInstance:
         type: 3}
       propertyPath: onShipDestroyed.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: ShowGameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 545429027448470821, guid: 5d446c0dddfddc44aaadb580d7ec4875,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 545429027448470821, guid: 5d446c0dddfddc44aaadb580d7ec4875,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7023654732228162932, guid: 5d446c0dddfddc44aaadb580d7ec4875,
         type: 3}

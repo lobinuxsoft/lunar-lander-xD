@@ -5,6 +5,7 @@ public class GravityFollowAlignment : MonoBehaviour
 {
     [SerializeField] private Transform targetToFollow;
     [SerializeField, Min(0f)] float upAlignmentSpeed = 360f;
+    
     Quaternion gravityAlignment = Quaternion.identity;
     
     private void Update()
@@ -31,7 +32,8 @@ public class GravityFollowAlignment : MonoBehaviour
         }
         else 
         {
-            gravityAlignment = Quaternion.SlerpUnclamped(gravityAlignment, newAlignment, maxAngle / angle);
+            //gravityAlignment = Quaternion.SlerpUnclamped(gravityAlignment, newAlignment, maxAngle / angle);
+            gravityAlignment = Quaternion.RotateTowards(gravityAlignment, newAlignment, maxAngle);
         }
 
         transform.rotation = gravityAlignment;

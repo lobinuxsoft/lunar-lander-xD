@@ -2,7 +2,6 @@
 using UnityEditor;
 #endif
 
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -17,7 +16,10 @@ public class ShipControl : MonoBehaviour
     [SerializeField] private float smoothInputSpeed = .2f;
 
     [Header("Thruster vfx")]
-    [SerializeField] private ThrusterParticleControl thrusterParticleControl;
+    [SerializeField] private ParticleControl thrusterParticle;
+    
+    [Header("Gravity Break vfx")]
+    [SerializeField] private ParticleControl gravityBreakParticle;
 
     public UnityEvent onOutOfFuel;
     
@@ -28,6 +30,10 @@ public class ShipControl : MonoBehaviour
     private float targetThruster;
     private float thruster;
     private float smoothTargetThruster;
+    
+    private float targetGravityBreak;
+    private float gravityBreak;
+    private float smoothTargetGravityBreak;
     
     private Rigidbody body;
     private Transform camTransform;
@@ -51,6 +57,7 @@ public class ShipControl : MonoBehaviour
     {
         CalculateMovement();
         CalculateThruster();
+        CalculateGravityBreak();
     }
 
     private void FixedUpdate()
@@ -65,6 +72,13 @@ public class ShipControl : MonoBehaviour
         {
             body.AddForce(body.transform.up * (shipSettings.ThrustersPower * shipSettings.ThrustersPotency), ForceMode.Force);
             shipSettings.ShipFuel -= shipSettings.RatioFuelConsumition * shipSettings.ThrustersPotency * Time.fixedDeltaTime;
+        }
+
+        if (shipSettings.GravityBreak > 0.001f)
+        {
+            body.AddForce(-body.velocity * shipSettings.GravityBreak, ForceMode.Force);
+            gravityBreakParticle.transform.rotation = Quaternion.LookRotation(body.velocity.normalized, transform.up);
+            shipSettings.ShipFuel -= shipSettings.RatioFuelConsumition * shipSettings.GravityBreak * Time.fixedDeltaTime;
         }
 
         if (direction.magnitude > 0.01f)
@@ -89,10 +103,11 @@ public class ShipControl : MonoBehaviour
         }
     }
 
-    private void OnDisable() => thrusterParticleControl.ThrusterPower(0);
+    private void OnDisable() => thrusterParticle.ParticlePower(0);
 
     public void OnMove(InputAction.CallbackContext context) => dirInput = context.ReadValue<Vector2>();
     public void OnThrusters(InputAction.CallbackContext context) => targetThruster = context.ReadValue<float>();
+    public void OnGravityBreak(InputAction.CallbackContext context) => targetGravityBreak = context.ReadValue<float>();
     
     
     private void CalculateMovement()
@@ -115,25 +130,44 @@ public class ShipControl : MonoBehaviour
         thruster = Mathf.SmoothDamp(thruster, targetThruster, ref smoothTargetThruster, smoothInputSpeed);
         shipSettings.ThrustersPotency = thruster > 0.001f ? thruster : 0;
         
-        thrusterParticleControl.ThrusterPower(shipSettings.ShipFuel > 0 ? shipSettings.ThrustersPotency : 0);
+        thrusterParticle.ParticlePower(shipSettings.ShipFuel > 0 ? shipSettings.ThrustersPotency : 0);
+    }
+
+    private void CalculateGravityBreak()
+    {
+        gravityBreak = Mathf.SmoothDamp(gravityBreak, targetGravityBreak, ref smoothTargetGravityBreak, smoothInputSpeed);
+        shipSettings.GravityBreak = gravityBreak > 0.001f ? gravityBreak : 0;
+        
+        gravityBreakParticle.ParticlePower(shipSettings.ShipFuel > 0 ? shipSettings.GravityBreak * body.velocity.normalized.magnitude : 0);
     }
     
 #if UNITY_EDITOR
 
-    [SerializeField] private Color gizmoColor;
+    [SerializeField] private Color dirColor;
+    [SerializeField] private Color thrusterColor;
+    [SerializeField] private Color breakColor;
     
     private void OnDrawGizmos()
     {
-        Handles.color = gizmoColor;
+        Handles.color = dirColor;
         Handles.DrawWireDisc(transform.position, Vector3.up, 1);
+        
         if(direction.magnitude > 0)
         {
             float arrowSize = Mathf.Clamp01(direction.magnitude);
             Quaternion arrowDir = Quaternion.LookRotation(direction, Vector3.up);
             Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
         }
+
+        Handles.color = breakColor;
+        if (body && body.velocity.magnitude > 0)
+        {
+            float arrowSize = Mathf.Clamp01(body.velocity.magnitude);
+            Quaternion arrowDir = Quaternion.LookRotation(body.velocity.normalized, Vector3.up);
+            Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
+        }
         
-        Handles.color = Color.cyan;
+        Handles.color = thrusterColor;
         Handles.ArrowHandleCap(0, transform.position, Quaternion.LookRotation(transform.up, Vector3.up),
             shipSettings.ThrustersPotency, EventType.Repaint);
     }

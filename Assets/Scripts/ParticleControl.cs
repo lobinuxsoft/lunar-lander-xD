@@ -1,9 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem))]
-public class ThrusterParticleControl : MonoBehaviour
+public class ParticleControl : MonoBehaviour
 {
-    [SerializeField, Range(0, 1)] private float thrustersPower = 0;
+    [SerializeField, Range(0, 1)] private float particlePower = 0;
     [SerializeField] private float sizeMultiplier = 1, speedMultiplier = 1;
     
     private ParticleSystem particle;
@@ -28,23 +28,23 @@ public class ThrusterParticleControl : MonoBehaviour
         }
         else
         {
-            ThrusterPower(thrustersPower);
+            ParticlePower(particlePower);
         }
         
     }
 #endif
     
 
-    public void ThrusterPower(float value)
+    public void ParticlePower(float value)
     {
-        thrustersPower = Mathf.Clamp01(value);
+        particlePower = Mathf.Clamp01(value);
 
         if (particle)
         {
-            emissionModule.enabled = thrustersPower > 0;
+            emissionModule.enabled = particlePower > 0;
             
-            mainModule.startSpeed = thrustersPower * speedMultiplier;
-            mainModule.startSize = thrustersPower * sizeMultiplier;
+            mainModule.startSpeed = particlePower * speedMultiplier;
+            mainModule.startSize = particlePower * sizeMultiplier;
         }
     }
 }
