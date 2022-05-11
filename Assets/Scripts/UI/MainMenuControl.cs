@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using Cursor = UnityEngine.Cursor;
 
 public class MainMenuControl : MonoBehaviour
 { 
@@ -23,8 +21,8 @@ public class MainMenuControl : MonoBehaviour
     
     private void Awake()
     {
-            root = GetComponent<UIDocument>().rootVisualElement;
-
+        root = GetComponent<UIDocument>().rootVisualElement; 
+            
         versionLabel = root.Q<Label>("game-version");
         versionLabel.text = $"version {Application.version}";
         

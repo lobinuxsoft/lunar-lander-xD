@@ -5594,13 +5594,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1732245083679312495, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
+      propertyPath: particlePower
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732245083679312495, guid: 3744db5270c90e64fa0cb4298266525d,
+        type: 3}
       propertyPath: thrustersPower
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1732245083679312495, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: speedMultiplier
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
@@ -5615,7 +5620,7 @@ PrefabInstance:
     - target: {fileID: 5006290864275790638, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 15
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7959220448236310335, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
