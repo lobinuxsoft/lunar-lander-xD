@@ -1,5 +1,12 @@
-using CryingOnionTools.ScriptableVariables.Editor;
 using UnityEditor;
+using CryingOnionTools.ScriptableVariables.Editor;
 
 [CustomEditor(typeof(ShipControlSettings))]
-public class ShipControlSettingsInspector : BaseScriptableVariableEditor { }
+public class ShipControlSettingsInspector : ScriptableVariableEditor
+{
+    public override void OnInspectorGUI()
+    {
+        base.OnInspectorGUI();
+        DrawInspector((ShipControlSettings)target);
+    }
+}
