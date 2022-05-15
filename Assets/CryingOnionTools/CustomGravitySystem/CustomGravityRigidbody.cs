@@ -22,10 +22,10 @@ namespace CryingOnionTools.GravitySystem
             return;
          }
 
-         if (body.velocity.sqrMagnitude < 0.0001f)
+         if (body.velocity.sqrMagnitude < 0.01f)
          {
             floatDelay += Time.fixedDeltaTime;
-            if(floatDelay >= 1) return;
+            if(floatDelay >= .5f) return;
          }
          else
          {

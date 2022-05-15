@@ -1,5 +1,9 @@
-using CryingOnionTools.GravitySystem;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 using UnityEngine;
+using CryingOnionTools.GravitySystem;
 
 public class GravityFollowAlignment : MonoBehaviour
 {
@@ -7,7 +11,7 @@ public class GravityFollowAlignment : MonoBehaviour
     [SerializeField, Min(0f)] float upAlignmentSpeed = 360f;
     
     Quaternion gravityAlignment = Quaternion.identity;
-    
+
     private void Update()
     {
         UpdateGravityAlignment();
@@ -32,10 +36,21 @@ public class GravityFollowAlignment : MonoBehaviour
         }
         else 
         {
-            //gravityAlignment = Quaternion.SlerpUnclamped(gravityAlignment, newAlignment, maxAngle / angle);
             gravityAlignment = Quaternion.RotateTowards(gravityAlignment, newAlignment, maxAngle);
         }
 
         transform.rotation = gravityAlignment;
     }
+
+#if UNITY_EDITOR
+
+    private void OnDrawGizmos()
+    {
+        Handles.color = Color.yellow;
+        Handles.matrix = transform.localToWorldMatrix;
+        Handles.CircleHandleCap(0, Vector3.zero, Quaternion.LookRotation(Vector3.up), 2, EventType.Repaint);
+        Handles.ArrowHandleCap(0, Vector3.zero, Quaternion.LookRotation(Vector3.down), 1.5f, EventType.Repaint);
+    }
+
+#endif
 }

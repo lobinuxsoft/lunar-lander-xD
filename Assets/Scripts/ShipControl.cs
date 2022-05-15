@@ -49,7 +49,7 @@ public class ShipControl : MonoBehaviour
         body.interpolation = RigidbodyInterpolation.Interpolate;
         body.collisionDetectionMode = CollisionDetectionMode.Continuous;
         baseAngularDrag = body.angularDrag;
-        camTransform = Camera.main!.transform;
+        camTransform = Camera.main.transform;
         shipSettings.Refuel();
     }
 
@@ -149,26 +149,28 @@ public class ShipControl : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        Handles.color = dirColor;
-        Handles.DrawWireDisc(transform.position, Vector3.up, 1);
         
-        if(direction.magnitude > 0)
+        Handles.color = breakColor;
+        if (body && body.velocity.magnitude > 0)
+        {
+            float arrowSize = Mathf.Clamp01(body.velocity.magnitude);
+            Quaternion arrowDir = Quaternion.LookRotation(body.velocity.normalized, Vector3.forward);
+            Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
+        }
+
+        if (direction.magnitude > 0)
         {
             float arrowSize = Mathf.Clamp01(direction.magnitude);
             Quaternion arrowDir = Quaternion.LookRotation(direction, Vector3.up);
             Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
         }
 
-        Handles.color = breakColor;
-        if (body && body.velocity.magnitude > 0)
-        {
-            float arrowSize = Mathf.Clamp01(body.velocity.magnitude);
-            Quaternion arrowDir = Quaternion.LookRotation(body.velocity.normalized, Vector3.up);
-            Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
-        }
-        
+        Handles.matrix = transform.localToWorldMatrix;
+        Handles.color = dirColor;
+        Handles.DrawWireDisc(Vector3.zero, Vector3.up, 1);
+
         Handles.color = thrusterColor;
-        Handles.ArrowHandleCap(0, transform.position, Quaternion.LookRotation(transform.up, Vector3.up),
+        Handles.ArrowHandleCap(0, Vector3.zero, Quaternion.LookRotation(Vector3.up),
             shipSettings.ThrustersPotency, EventType.Repaint);
     }
 #endif
