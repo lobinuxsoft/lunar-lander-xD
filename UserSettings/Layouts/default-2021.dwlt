@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 400, y: 200}
   m_MaxSize: {x: 32384, y: 16192}
   vertical: 0
-  controlID: 5718
+  controlID: 46691
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 5694
+  controlID: 46614
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -407,7 +407,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: e4faffff
+      m_ExpandedIDs: 18e1f7ff166cfeffe6faffffd05f0000a0790000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -473,7 +473,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Sword Scifi
+    - Assets/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: bc670000
     m_LastClickedID: 26556
-    m_ExpandedIDs: ffffffff000000002e6000001c6100001e61000020610000226100002461000026610000286100002a6100002c6100002e61000030610000326100003461000036610000386100003a6100003c6100003e610000406100004261000044610000466100004a6100004c6100004e610000586b0000
+    m_ExpandedIDs: ffffffff00000000580800001a6000004a6100004c6100004e61000050610000526100005461000056610000586100005a6100005c6100005e61000060610000626100006461000066610000686100006a6100006c6100006e6100007061000072610000746100007a610000766800008468000088680000c6680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -512,10 +512,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_AssetTreeState:
-    scrollPos: {x: 0, y: 185}
+    scrollPos: {x: 0, y: 116}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000002e6000001c6100001e61000020610000226100002461000026610000286100002a6100002c6100002e61000030610000326100003461000036610000386100003a6100003c6100003e610000406100004261000044610000466100004a6100004c6100004e610000586b0000
+    m_ExpandedIDs: ffffffff00000000580800001a6000004a6100004c6100004e61000050610000526100005461000056610000586100005a6100005c6100005e61000060610000626100006461000066610000686100006a6100006c6100006e6100007061000072610000746100007a610000766800008468000088680000c6680000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -649,7 +649,7 @@ MonoBehaviour:
       floating: 0
       collapsed: 0
       displayed: 1
-      snapOffset: {x: 0, y: 0}
+      snapOffset: {x: 0, y: 25}
       snapOffsetDelta: {x: 0, y: 0}
       snapCorner: 0
       id: unity-transform-toolbar
@@ -797,9 +797,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.2501173, y: -0.12257779, z: -0.0028811246}
+    m_Target: {x: -27.453129, y: 0, z: -34.694878}
     speed: 2
-    m_Value: {x: -1.2501173, y: -0.12257779, z: -0.0028811246}
+    m_Value: {x: -27.453129, y: 0, z: -34.694878}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -846,13 +846,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.5839476, y: 0.21760002, z: -0.16642052, w: -0.76422495}
+    m_Target: {x: 0.2061197, y: 0.5087991, z: -0.1269407, w: 0.8261604}
     speed: 2
-    m_Value: {x: -0.5839476, y: 0.21760002, z: -0.16642052, w: -0.76422495}
+    m_Value: {x: 0.2061197, y: 0.5087991, z: -0.1269407, w: 0.8261604}
   m_Size:
-    m_Target: 0.6734359
+    m_Target: 3.8025136
     speed: 2
-    m_Value: 0.6734359
+    m_Value: 3.8025136
   m_Ortho:
     m_Target: 0
     speed: 2
