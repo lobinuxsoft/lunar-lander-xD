@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 51e3690cd1307494d91a34d24237185f
+guid: 6020ff6128932ba4e9f30d167989db4c
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: text_rocket
-    second: {fileID: 2100000, guid: bbe6cb664cb74614981394aae34d6a1e, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
