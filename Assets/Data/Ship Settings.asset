@@ -16,12 +16,12 @@ MonoBehaviour:
     maxDurability: 1000
     curDurability: 1000
     maxFuel: 1000
-    ratioFuelConsumition: 10
+    ratioFuelConsumition: 50
     thrustersPower: 30
     rotationSpeed: 180
-    maxVelocity: 50
+    maxVelocity: 100
     curVelocity: 0
-    shipFuel: 0
+    shipFuel: 1000
     thrustersPotency: 0
     gravityBreak: 0
   redeableFile: 0

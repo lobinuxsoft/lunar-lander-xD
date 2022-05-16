@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using CryingOnionTools.GravitySystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipControl : MonoBehaviour
@@ -112,19 +113,16 @@ public class ShipControl : MonoBehaviour
     
     private void CalculateMovement()
     {
-        Vector3 forward = camTransform.forward;
-        forward.y = 0;
-        forward.Normalize();
+        Vector3 gravityUp = CustomGravity.GetUpAxis(body.position);
 
-        Vector3 right = camTransform.right;
-        right.y = 0;
-        right.Normalize();
-        
+        Vector3 forward = ProjectDirectionOnPlane(camTransform.forward, gravityUp);
+        Vector3 right = ProjectDirectionOnPlane(camTransform.right, gravityUp);
+
         targetDir = -dirInput.x * forward + dirInput.y * right;
         
         direction = Vector3.SmoothDamp(direction, targetDir, ref smoothDirVelocity, smoothInputSpeed);
     }
-    
+
     private void CalculateThruster()
     {
         thruster = Mathf.SmoothDamp(thruster, targetThruster, ref smoothTargetThruster, smoothInputSpeed);
@@ -140,7 +138,12 @@ public class ShipControl : MonoBehaviour
         
         gravityBreakParticle.ParticlePower(shipSettings.ShipFuel > 0 ? shipSettings.GravityBreak * body.velocity.normalized.magnitude : 0);
     }
-    
+
+    Vector3 ProjectDirectionOnPlane(Vector3 direction, Vector3 normal)
+    {
+        return (direction - normal * Vector3.Dot(direction, normal)).normalized;
+    }
+
 #if UNITY_EDITOR
 
     [SerializeField] private Color dirColor;
