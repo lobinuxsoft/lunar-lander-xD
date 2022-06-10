@@ -8,12 +8,22 @@ namespace CryingOnionTools.GravitySystem
 {
     public class GravitySphere : GravitySource
     {
-        [SerializeField] float gravity = 9.81f;
+        [SerializeField] private float gravity = 9.81f;
 
         [SerializeField, Min(0f)] private float innerFalloffRadius = 15f, innerRadius = 18f;
-        [SerializeField, Min(0f)] float outerRadius = 22f, outerFalloffRadius = 22f;
-        
-        float innerFalloffFactor, outerFalloffFactor;
+        [SerializeField, Min(0f)] private float outerRadius = 22f, outerFalloffRadius = 22f;
+
+        public float Gravity => gravity;
+
+        public float InnerFalloffRadius => innerFalloffRadius;
+
+        public float InnerRadius => innerRadius;
+
+        public float OuterRadius => outerRadius;
+
+        public float OuterFalloffRadius => outerFalloffRadius;
+
+        private float innerFalloffFactor, outerFalloffFactor;
 
         void Awake() => OnValidate();
 
@@ -48,37 +58,5 @@ namespace CryingOnionTools.GravitySystem
             
             return g * vector;
         }
-        
-#if UNITY_EDITOR
-        void OnDrawGizmos () 
-        {
-            Vector3 p = transform.position;
-            
-            if (innerFalloffRadius > 0f && innerFalloffRadius < innerRadius) 
-            {
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawWireSphere(p, innerFalloffRadius);
-            }
-            
-            Gizmos.color = Color.yellow;
-
-            if (innerRadius > 0 && innerRadius < outerRadius)
-            {
-                Gizmos.DrawWireSphere(p, innerRadius);
-            }
-            
-            Gizmos.DrawWireSphere(p, outerRadius);
-            Handles.color = new Color(Color.yellow.r, Color.yellow.g, Color.yellow.b, .15f); 
-            Handles.SphereHandleCap(0, p, Quaternion.identity, outerRadius * 2, EventType.Repaint);
-            
-            if (outerFalloffRadius > outerRadius)
-            {
-                Gizmos.color = Color.cyan;
-                Gizmos.DrawWireSphere(p, outerFalloffRadius);
-                Handles.color = new Color(Color.cyan.r, Color.cyan.g, Color.cyan.b, .15f);
-                Handles.SphereHandleCap(0, p, Quaternion.identity, outerFalloffRadius * 2, EventType.Repaint);
-            }
-        }
-#endif
     }
 }
