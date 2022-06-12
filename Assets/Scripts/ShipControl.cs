@@ -113,7 +113,7 @@ public class ShipControl : MonoBehaviour
     
     private void CalculateMovement()
     {
-        Vector3 gravityUp = CustomGravity.GetUpAxis(body.position);
+        Vector3 gravityUp = GravitySystem.GetUpAxis(body.position);
 
         Vector3 forward = ProjectDirectionOnPlane(camTransform.forward, gravityUp);
         Vector3 right = ProjectDirectionOnPlane(camTransform.right, gravityUp);
