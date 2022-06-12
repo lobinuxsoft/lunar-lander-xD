@@ -58,7 +58,7 @@ public class ShipDamageControl : MonoBehaviour
             {
                 childCol.enabled = true;
                 childCol.gameObject.AddComponent<Rigidbody>();
-                childCol.gameObject.AddComponent<CustomGravityRigidbody>();
+                childCol.gameObject.AddComponent<GravitySystemRigidbody>();
                 childCol.attachedRigidbody.AddExplosionForce(explosionForce, transform.position, explosionRadius);
                 
                 if (childCol.TryGetComponent<ParticleSystem>(out ParticleSystem ps))

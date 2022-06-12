@@ -34,7 +34,6 @@ public class ParticleControl : MonoBehaviour
     }
 #endif
     
-
     public void ParticlePower(float value)
     {
         particlePower = Mathf.Clamp01(value);

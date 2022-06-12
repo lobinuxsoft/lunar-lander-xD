@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using CryingOnionTools.GravitySystem;
 
 [RequireComponent(typeof(Rigidbody))]
 public class ShipControl : MonoBehaviour
@@ -49,7 +50,7 @@ public class ShipControl : MonoBehaviour
         body.interpolation = RigidbodyInterpolation.Interpolate;
         body.collisionDetectionMode = CollisionDetectionMode.Continuous;
         baseAngularDrag = body.angularDrag;
-        camTransform = Camera.main!.transform;
+        camTransform = Camera.main.transform;
         shipSettings.Refuel();
     }
 
@@ -112,19 +113,16 @@ public class ShipControl : MonoBehaviour
     
     private void CalculateMovement()
     {
-        Vector3 forward = camTransform.forward;
-        forward.y = 0;
-        forward.Normalize();
+        Vector3 gravityUp = GravitySystem.GetUpAxis(body.position);
 
-        Vector3 right = camTransform.right;
-        right.y = 0;
-        right.Normalize();
-        
+        Vector3 forward = ProjectDirectionOnPlane(camTransform.forward, gravityUp);
+        Vector3 right = ProjectDirectionOnPlane(camTransform.right, gravityUp);
+
         targetDir = -dirInput.x * forward + dirInput.y * right;
         
         direction = Vector3.SmoothDamp(direction, targetDir, ref smoothDirVelocity, smoothInputSpeed);
     }
-    
+
     private void CalculateThruster()
     {
         thruster = Mathf.SmoothDamp(thruster, targetThruster, ref smoothTargetThruster, smoothInputSpeed);
@@ -140,7 +138,12 @@ public class ShipControl : MonoBehaviour
         
         gravityBreakParticle.ParticlePower(shipSettings.ShipFuel > 0 ? shipSettings.GravityBreak * body.velocity.normalized.magnitude : 0);
     }
-    
+
+    Vector3 ProjectDirectionOnPlane(Vector3 direction, Vector3 normal)
+    {
+        return (direction - normal * Vector3.Dot(direction, normal)).normalized;
+    }
+
 #if UNITY_EDITOR
 
     [SerializeField] private Color dirColor;
@@ -149,26 +152,28 @@ public class ShipControl : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        Handles.color = dirColor;
-        Handles.DrawWireDisc(transform.position, Vector3.up, 1);
         
-        if(direction.magnitude > 0)
+        Handles.color = breakColor;
+        if (body && body.velocity.magnitude > 0)
+        {
+            float arrowSize = Mathf.Clamp01(body.velocity.magnitude);
+            Quaternion arrowDir = Quaternion.LookRotation(body.velocity.normalized, Vector3.forward);
+            Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
+        }
+
+        if (direction.magnitude > 0)
         {
             float arrowSize = Mathf.Clamp01(direction.magnitude);
             Quaternion arrowDir = Quaternion.LookRotation(direction, Vector3.up);
             Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
         }
 
-        Handles.color = breakColor;
-        if (body && body.velocity.magnitude > 0)
-        {
-            float arrowSize = Mathf.Clamp01(body.velocity.magnitude);
-            Quaternion arrowDir = Quaternion.LookRotation(body.velocity.normalized, Vector3.up);
-            Handles.ArrowHandleCap(0, transform.position, arrowDir, arrowSize, EventType.Repaint);
-        }
-        
+        Handles.matrix = transform.localToWorldMatrix;
+        Handles.color = dirColor;
+        Handles.DrawWireDisc(Vector3.zero, Vector3.up, 1);
+
         Handles.color = thrusterColor;
-        Handles.ArrowHandleCap(0, transform.position, Quaternion.LookRotation(transform.up, Vector3.up),
+        Handles.ArrowHandleCap(0, Vector3.zero, Quaternion.LookRotation(Vector3.up),
             shipSettings.ThrustersPotency, EventType.Repaint);
     }
 #endif

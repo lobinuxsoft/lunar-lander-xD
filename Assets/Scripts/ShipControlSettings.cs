@@ -4,111 +4,108 @@ using CryingOnionTools.ScriptableVariables;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Ship Control Settings", menuName = "Crying Onion Tools/ Scriptable Variables/ Ship Control Settings")]
-public class ShipControlSettings : BaseScriptableVariable
+public class ShipControlSettings : ScriptableVariable<ShipControlSettingsStruct>
 {
-    [Tooltip("Ship configurations that can be saved.")]
-    [SerializeField] private ShipControlSettingsStruct shipSettings;
-    
     public async void Refuel(float chargeRatio = 1000)
     {
-        while (shipSettings.shipFuel < shipSettings.maxFuel)
+        while (value.shipFuel < value.maxFuel)
         {
-            shipSettings.shipFuel += chargeRatio * Time.unscaledDeltaTime;
+            value.shipFuel += chargeRatio * Time.unscaledDeltaTime;
             await Task.Yield();
         }
         
-        shipSettings.shipFuel = shipSettings.maxFuel;
+        value.shipFuel = value.maxFuel;
     }
 
     public async void Repair(float chargeRatio = 1000)
     {
-        while (shipSettings.curDurability < shipSettings.maxDurability)
+        while (value.curDurability < value.maxDurability)
         {
-            shipSettings.curDurability += Mathf.CeilToInt(chargeRatio * Time.unscaledDeltaTime);
+            value.curDurability += Mathf.CeilToInt(chargeRatio * Time.unscaledDeltaTime);
             await Task.Yield();
         }
-        shipSettings.curDurability = shipSettings.maxDurability;
+        value.curDurability = value.maxDurability;
     }
 
     public int MaxDurability
     {
-        get => shipSettings.maxDurability;
-        set => shipSettings.maxDurability = value;
+        get => value.maxDurability;
+        set => this.value.maxDurability = value;
     }
 
     public int CurDurability
     {
-        get => shipSettings.curDurability;
-        set => shipSettings.curDurability = value;
+        get => value.curDurability;
+        set => this.value.curDurability = value;
     }
     
     public float MaxFuel
     {
-        get => shipSettings.maxFuel;
-        set => shipSettings.maxFuel = value;
+        get => value.maxFuel;
+        set => this.value.maxFuel = value;
     }
 
     public float RatioFuelConsumition
     {
-        get => shipSettings.ratioFuelConsumition;
-        set => shipSettings.ratioFuelConsumition = value;
+        get => value.ratioFuelConsumition;
+        set => this.value.ratioFuelConsumition = value;
     }
 
     public float MaxVelocity
     {
-        get => shipSettings.maxVelocity;
-        set => shipSettings.maxVelocity = value;
+        get => value.maxVelocity;
+        set => this.value.maxVelocity = value;
     }
 
     public float CurVelocity
     {
-        get => shipSettings.curVelocity;
-        set => shipSettings.curVelocity = value;
+        get => value.curVelocity;
+        set => this.value.curVelocity = value;
     }
 
     public float ThrustersPower
     {
-        get => shipSettings.thrustersPower;
-        set => shipSettings.thrustersPower = value;
+        get => value.thrustersPower;
+        set => this.value.thrustersPower = value;
     }
 
     public float GravityBreak
     {
-        get => shipSettings.gravityBreak;
-        set => shipSettings.gravityBreak = value;
+        get => value.gravityBreak;
+        set => this.value.gravityBreak = value;
     }
 
     public float RotationSpeed
     {
-        get => shipSettings.rotationSpeed;
-        set => shipSettings.rotationSpeed = value;
+        get => value.rotationSpeed;
+        set => this.value.rotationSpeed = value;
     }
 
     public float ShipFuel
     {
-        get => shipSettings.shipFuel;
-        set => shipSettings.shipFuel = Mathf.Clamp(value, 0, MaxFuel);
+        get => value.shipFuel;
+        set => this.value.shipFuel = Mathf.Clamp(value, 0, MaxFuel);
     }
 
     public float ThrustersPotency
     {
-        get => shipSettings.thrustersPotency;
-        set => shipSettings.thrustersPotency = value;
+        get => value.thrustersPotency;
+        set => this.value.thrustersPotency = value;
     }
 
-    public override void SaveData()
-    {
-        shipSettings.thrustersPotency = 0;
-        shipSettings.gravityBreak = 0;
-        SaveData(shipSettings);
-    }
+    // public override void SaveData()
+    // {
+    //     shipSettings.thrustersPotency = 0;
+    //     shipSettings.gravityBreak = 0;
+    //     SaveData(shipSettings);
+    // }
+    //
+    // public override void LoadData() => shipSettings = LoadData<ShipControlSettingsStruct>();
 
-    public override void LoadData() => shipSettings = LoadData<ShipControlSettingsStruct>();
-
-    public override void EraseSaveFile()
+    public override void EraseData()
     {
-        base.EraseSaveFile();
-        shipSettings = new ShipControlSettingsStruct();
+        base.EraseData();
+        value = new ShipControlSettingsStruct();
     }
 }
 

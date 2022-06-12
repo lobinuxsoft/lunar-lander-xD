@@ -3928,7 +3928,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 1
     lifetime:
@@ -3984,7 +3984,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.2
+    minVertexDistance: 0
     textureMode: 0
     ribbonCount: 1
     shadowBias: 0.5
@@ -4763,7 +4763,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 7a47ce03a51e69549a4183c91c508b27, type: 2}
-  - {fileID: 2100000, guid: 7a47ce03a51e69549a4183c91c508b27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4788,7 +4787,7 @@ ParticleSystemRenderer:
   m_MeshDistribution: 0
   m_SortMode: 1
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0
+  m_MaxParticleSize: 0.5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
@@ -4827,5 +4826,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particlePower: 0
-  sizeMultiplier: 1.5
-  speedMultiplier: 5
+  sizeMultiplier: 0.45
+  speedMultiplier: 3

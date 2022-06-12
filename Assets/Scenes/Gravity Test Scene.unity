@@ -312,14 +312,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 80886300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e59b0b27b78620746a2f0e1abb0f8025, type: 3}
+  m_Script: {fileID: 1382207934, guid: cfbf9aaa41a88084fa79f14165210c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.81
   innerFalloffRadius: 0
   innerRadius: 0
   outerRadius: 90
-  outerFalloffRadius: 100
+  outerFalloffRadius: 125
 --- !u!135 &80886302
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 189015989}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce85d17e328731e41ba5d2d123f4a15b, type: 3}
+  m_Script: {fileID: -1250745503, guid: cfbf9aaa41a88084fa79f14165210c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 4.905
@@ -575,7 +575,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 296874335}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.453129, y: 0, z: -34.694878}
+  m_LocalPosition: {x: -27.453129, y: 2.63, z: -34.694878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -674,8 +674,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0.046269175, y: -0.000000017322138, z: -8.022647e-10, w: 0.998929}
-  m_LocalPosition: {x: -27.453129, y: 0.10006238, z: -50.69388}
+  m_LocalRotation: {x: -0.049379807, y: -0.0000000040082115, z: -1.42375434e-11, w: 0.9987801}
+  m_LocalPosition: {x: -27.453129, y: 2.63, z: -50.694878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1181,7 +1181,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647549732}
-  m_LocalRotation: {x: -0.06438358, y: 0.00000001769913, z: 0.0000000011419026, w: 0.9979252}
+  m_LocalRotation: {x: -0.067491, y: 0.0000000042917874, z: 2.9031902e-10, w: 0.9977199}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1259,7 +1259,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760730985}
-  m_LocalRotation: {x: -0.04626917, y: -0.00000001732171, z: -8.0232054e-10, w: 0.998929}
+  m_LocalRotation: {x: -0.049379807, y: -0.0000000021481743, z: -1.06205995e-10, w: 0.9987801}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1421,14 +1421,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 898800511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e59b0b27b78620746a2f0e1abb0f8025, type: 3}
+  m_Script: {fileID: 1382207934, guid: cfbf9aaa41a88084fa79f14165210c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gravity: 9.81
   innerFalloffRadius: 0
   innerRadius: 0
   outerRadius: 90
-  outerFalloffRadius: 100
+  outerFalloffRadius: 125
 --- !u!135 &898800513
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2158,7 +2158,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1685938907}
-  m_LocalRotation: {x: -0.028091507, y: -0.0000000010749743, z: -3.020957e-11, w: 0.99960536}
+  m_LocalRotation: {x: -0.031204328, y: 0.000000017198003, z: 5.369136e-10, w: 0.99951303}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2419,7 +2419,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776518138}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.453129, y: 0, z: -50.694878}
+  m_LocalPosition: {x: -27.453129, y: 2.63, z: -50.694878}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2834,17 +2834,17 @@ PrefabInstance:
     - target: {fileID: 7023654732228162932, guid: 5d446c0dddfddc44aaadb580d7ec4875,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.453129
+      value: -27.48121
       objectReference: {fileID: 0}
     - target: {fileID: 7023654732228162932, guid: 5d446c0dddfddc44aaadb580d7ec4875,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000023841858
+      value: 0.9999994
       objectReference: {fileID: 0}
     - target: {fileID: 7023654732228162932, guid: 5d446c0dddfddc44aaadb580d7ec4875,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -34.694878
+      value: -35.03
       objectReference: {fileID: 0}
     - target: {fileID: 7023654732228162932, guid: 5d446c0dddfddc44aaadb580d7ec4875,
         type: 3}

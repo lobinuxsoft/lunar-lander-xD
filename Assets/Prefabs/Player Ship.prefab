@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7023654732228162931}
   - component: {fileID: 7023654732228162930}
   - component: {fileID: 7023654732228162933}
-  - component: {fileID: 6466906709569677897}
+  - component: {fileID: 2633366338238234530}
   - component: {fileID: 213323724222990120}
   - component: {fileID: 2540564498289613871}
   m_Layer: 3
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!65 &6466906709569677897
-BoxCollider:
+--- !u!64 &2633366338238234530
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -223,9 +223,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3118896, y: 2.282135, z: 1.2598877}
-  m_Center: {x: 0.008666992, y: 1.1261978, z: 0.12994385}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 36255504644925929, guid: 6020ff6128932ba4e9f30d167989db4c, type: 3}
 --- !u!114 &213323724222990120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +305,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7023654732228162936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d812bf96b8cc39f48ac77b9582945932, type: 3}
+  m_Script: {fileID: -169396921, guid: cfbf9aaa41a88084fa79f14165210c70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1334558578537941914
@@ -393,6 +394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 51e3690cd1307494d91a34d24237185f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2146664261211634776, guid: 51e3690cd1307494d91a34d24237185f,
         type: 3}
@@ -24492,7 +24498,7 @@ PrefabInstance:
     - target: {fileID: 8232393939294605271, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.447
+      value: -0.562
       objectReference: {fileID: 0}
     - target: {fileID: 8232393939294605271, guid: 3744db5270c90e64fa0cb4298266525d,
         type: 3}
@@ -24629,12 +24635,12 @@ PrefabInstance:
     - target: {fileID: 4332269102277812882, guid: df0286861f6ffe54fad45a142e0e66f5,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4332269102277812882, guid: df0286861f6ffe54fad45a142e0e66f5,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df0286861f6ffe54fad45a142e0e66f5, type: 3}
